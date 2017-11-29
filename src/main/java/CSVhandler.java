@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CSVhandler {
+public class CSVhandler extends AbstractCSVhandler {
 
 
     private static BufferedWriter bw;
@@ -57,7 +57,7 @@ public class CSVhandler {
 
             esex.execute(new Runnable() {
                 public void run() {
-                  // synchronized (this) {
+
                         String s;
                         String forArray;
                         StringBuffer sbf;
@@ -132,20 +132,7 @@ public class CSVhandler {
                                             globalArray.addElements(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(duration));
                                          //   CSVOut.writeToFile(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(duration));
 
-
-
-
                                     }
-
-                                }
-
-                                while ((s = bf.readLine()) != null) {
-
-
-//                                }else
-                                    //   System.out.println(s);
-
-                                    // CSVOut.writeToFile(s);
 
                                 }
 
@@ -157,8 +144,8 @@ public class CSVhandler {
                         }
                         countDownLatch.countDown();
                     }
-  //              }
-                
+
+
 
             });
 
