@@ -6,7 +6,9 @@ import java.util.Comparator;
 public class GlobalArray {
     ArrayList<StringBuffer>globalArrayList;
     CSVOut csvOut;
-
+/*
+Создаем глобальный массив для сортировки и последующего вывода в файл
+ */
     public GlobalArray() {
         this.csvOut = new CSVOut();
         this.globalArrayList = new ArrayList<StringBuffer>();
@@ -22,7 +24,7 @@ public class GlobalArray {
     }
 
 
-   public void sort() {
+   public void sort() { // переопределяем compare для сортировки по User ID
         globalArrayList.sort((new Comparator<StringBuffer>() {
             public int compare(StringBuffer o1, StringBuffer o2) {
 
@@ -30,6 +32,7 @@ public class GlobalArray {
             }
         }));
    }
+
    public void writeToOutPut() {
 
        for (int i = 0; i <globalArrayList.size(); i++) {

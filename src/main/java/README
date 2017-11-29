@@ -1,0 +1,11 @@
+-Task is not completed unfortunatuly becouse of the lack of the time,
+(my current job was jealousy last three days while working on this task :(
+ so i juts didn`t mange to complete it )
+
+
+- developed on maven build tool,
+- there are two input files in input folder , located in C:\Users\dsapozhnikov\Documents\GitHub\CSVhandler\input
+- also one output folder ( i found task pretty interesting but even though there are some questions left, for example
+whether we schould write all the date from input folder in a single output file or multiple output files should be there?)
+
+-outputfile location: C:\Users\dsapozhnikov\Documents\GitHub\CSVhandler\output\output.csv
