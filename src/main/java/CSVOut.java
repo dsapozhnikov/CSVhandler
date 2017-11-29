@@ -1,7 +1,9 @@
 
 import java.io.*;
 import java.util.List;
-
+/*
+Создаем класс для запси в результирующий файл
+ */
 public class CSVOut extends AbstractCSVhandler {
 
     public CSVOut() {
@@ -20,7 +22,7 @@ public class CSVOut extends AbstractCSVhandler {
     static String s;
 
 
-    public synchronized  void writeToFile(StringBuffer output ) {
+    public synchronized  void writeToFile(StringBuffer output ) { //пишем в файл из глобального мамссива с отсортированными данными
         try {
             bw.write(output + "\n");
             bw.flush();
@@ -31,7 +33,7 @@ public class CSVOut extends AbstractCSVhandler {
           }
     }
 
-    public void printResult() throws IOException {
+    public void printResult() throws IOException {  // метод для вывод результата в консоль
         try {
 
             reader = new FileReader(outputfilename);
