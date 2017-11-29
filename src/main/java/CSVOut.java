@@ -1,32 +1,27 @@
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 
 import java.io.*;
-import java.util.LinkedList;
 import java.util.List;
 
-public class CSVOut {
-    static FileReader reader;
-    static BufferedReader bf;
-    static BufferedWriter bw;
+public class CSVOut extends AbstractCSVhandler {
 
-    static {
+    public CSVOut() {
+
         try {
-            bw = new BufferedWriter(new FileWriter("C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\output\\output.csv"));
+
+            bw = new BufferedWriter(new FileWriter(outputfilename));
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
     private List<String[]> strings;
 
     static String s;
 
 
-    public synchronized static void writeToFile(StringBuffer output ) {
+    public synchronized  void writeToFile(StringBuffer output ) {
         try {
-
             bw.write(output + "\n");
             bw.flush();
 
@@ -34,16 +29,14 @@ public class CSVOut {
 
             e.printStackTrace();
           }
-
     }
 
     public void printResult() throws IOException {
         try {
 
-            reader = new FileReader("C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\output\\output.csv");
+            reader = new FileReader(outputfilename);
             bf = new BufferedReader(reader);
             while ((s=bf.readLine())!=null) {
-
 
                 System.out.println("Output "+s);
             }

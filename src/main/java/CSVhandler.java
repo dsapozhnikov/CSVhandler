@@ -1,12 +1,6 @@
-import com.opencsv.CSVReader;
 
 import java.io.*;
 
-import java.sql.Array;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
@@ -14,33 +8,20 @@ import java.util.concurrent.Executors;
 
 public class CSVhandler extends AbstractCSVhandler {
 
+    static GlobalArray globalArray;
 
-    private static BufferedWriter bw;
-    private static FileReader reader;
-    private static FileReader readerForInts;
-    private static BufferedReader bf;
-    private static FileWriter writer;
-    private static BufferedReader bfForArray;
-    static  GlobalArray globalArray;
-
-
-    public static ArrayList<File> listFilesFromFolder(final File folder) {
+    public  ArrayList<File> listFilesFromFolder(final File folder) {
         ArrayList<File> files = new ArrayList<File>(Arrays.asList(folder.listFiles()));
         return files;
 
     }
 
-    public static void main(String[] args) {
-        final String inputfilename ="C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\input\\";
-        final String outputfilename = "C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\output\\output.csv";
-        final String folderName = "C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\input";
-
-        final CSVOut csvOut;
+    public void handleCSV() {
 
         ExecutorService esex = Executors.newFixedThreadPool(5);
 
         File f = new File(folderName);
-        ArrayList<File>files= listFilesFromFolder(f);
+        ArrayList<File> files = listFilesFromFolder(f);
         final CountDownLatch countDownLatch = new CountDownLatch(files.size());
 
 
@@ -50,135 +31,101 @@ public class CSVhandler extends AbstractCSVhandler {
             e.printStackTrace();
         }
 
-        for (int i = 0 ; i <files.size(); i++) {
+        for (int i = 0; i < files.size(); i++) {
 
-            final  int w =i;
+            final int w = i;
             final String name = files.get(w).getName();
 
             esex.execute(new Runnable() {
                 public void run() {
 
-                        String s;
-                        String forArray;
-                        StringBuffer sbf;
-                        ArrayList<Integer> order;
-                        ArrayList<String> strings;
+                    String write;
+                    StringBuffer sbf;
+                    ArrayList<String> strings;
+
+                    try {
+                        readerForInts = new FileReader(inputfilename + name);
+                        reader = new FileReader(inputfilename + name);
+                        bf = new BufferedReader(reader);
+                        bfForArray = new BufferedReader(readerForInts);
+                        strings = new ArrayList<String>();
+                        globalArray = new GlobalArray();
 
                         try {
-                            order = new ArrayList<Integer>();
-                            readerForInts = new FileReader(inputfilename + name);
-                            reader = new FileReader(inputfilename + name);
-                            bf = new BufferedReader(reader);
-                            bfForArray = new BufferedReader(readerForInts);
-                            strings = new ArrayList<String>();
-                            globalArray = new GlobalArray();
-
-                            try {
 //
-                                while ((forArray = bfForArray.readLine()) != null) {
-                                    strings.add(forArray);
-//
-                                    String[] splits = forArray.split(",");
-                                    if (splits.length - 1 == 3) {
-                                        order.add(Integer.parseInt(splits[1].substring(4)));
+                            while ((write = bfForArray.readLine()) != null) {
+                                strings.add(write);
+                            }
+                            for (int j = 0; j < strings.size(); j++) {
+                                System.out.println(strings.get(j));
+                            }
+                            for (int j = 0; j < strings.size(); j++) {
+                                String string = strings.get(j);
 
-                                    }
-                                }
+                                String[] splits = string.split(",");
 
-                                strings.sort(new Comparator<String>() {
-                                    public int compare(String o1, String o2) {
-                                        return Integer.parseInt(o1.split(",")[1].substring(4)) - Integer.parseInt(o2.split(",")[1].substring(4));
-                                    }
-                                });
+                                if (splits.length - 1 == 3) {
 
-                                for (int j = 0; j < strings.size(); j++) {
-                                    System.out.println(strings.get(j));
-                                }
-
-
-                                for (int j = 0; j < strings.size(); j++) {
-                                    String string = strings.get(j);
-
-                                    String[] splits = string.split(",");
-
-                                    if (splits.length - 1 == 3) {
-
-                                        long sessionTime = Integer.parseInt(splits[3]);
-                                        long timeStamp = Integer.parseInt(splits[0]);
-                                        //         System.out.println("Session starts at "+timeStamp);
-                                        long resultTime = timeStamp + sessionTime;
+                                    long sessionTime = Integer.parseInt(splits[3]);
+                                    long timeStamp = Integer.parseInt(splits[0]);
+                                    //         System.out.println("Session starts at "+timeStamp);
+                                    long resultTime = timeStamp + sessionTime;
 //                                    System.out.println("result "+resultTime);
 //                                    System.out.println("startSession  "+timeStamp);
 
-                                        sbf = new StringBuffer(string);
-                                        if (!Calculator.compareTimes(timeStamp, resultTime)) {
+                                    sbf = new StringBuffer(string);
+                                    if (!Calculator.compareTimes(timeStamp, resultTime)) {
 
-                                            // System.out.println("START  "+Calculator.getTheBeginningOfTheNextDay(resultTime));
-                                            long startDay = Calculator.getTheBeginningOfTheNextDay(resultTime);
-                                            long before = startDay - timeStamp;
-                                            String date = Calculator.getDateForOutPut(timeStamp);
-                                            String dateAfter = Calculator.getDateForOutPut(resultTime);
+                                        // System.out.println("START  "+Calculator.getTheBeginningOfTheNextDay(resultTime));
+                                        long startDay = Calculator.getTheBeginningOfTheNextDay(resultTime);
+                                        long before = startDay - timeStamp;
+                                        String date = Calculator.getDateForOutPut(timeStamp);
+                                        String dateAfter = Calculator.getDateForOutPut(resultTime);
 
-                                            long after = (sessionTime - before);
-                                            globalArray.addElements(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(before).append("\n ")
-                                                    .append(dateAfter).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(after));
-
-                                       //     CSVOut.writeToFile(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(before).append("\n ")
-                                       //             .append(dateAfter).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(after));
-
-                                        }
-                                            long duration = resultTime - timeStamp;
-                                            String date = Calculator.getDateForOutPut(timeStamp);
-                                            globalArray.addElements(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(duration));
-                                         //   CSVOut.writeToFile(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(duration));
+                                        long after = (sessionTime - before);
+                                        globalArray.addElements(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(before).append("\n ")
+                                                .append(dateAfter).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(after));
 
                                     }
+                                    long duration = resultTime - timeStamp;
+                                    String date = Calculator.getDateForOutPut(timeStamp);
+                                    globalArray.addElements(sbf.append(date).append("\n ").append(timeStamp).append(", ").append(splits[1]).append(", ").append(splits[2]).append(", ").append(duration));
 
                                 }
 
-                            } catch (IOException e) {
-                                e.printStackTrace();
                             }
-                        } catch (FileNotFoundException e) {
+
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        countDownLatch.countDown();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-
-
+                    countDownLatch.countDown();
+                }
 
             });
 
-
         }
         esex.shutdown();
+
         try {
             countDownLatch.await();
-            globalArray.sort();
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
+        globalArray.sort();
 
+        try {
+            reader.close();
+            writer.close();
 
-
-            csvOut = new CSVOut();
-            try {
-            csvOut.printResult();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        finally {
-
-            try {
-                reader.close();
-                writer.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        globalArray.sort();
 
     }
 
-
 }
+

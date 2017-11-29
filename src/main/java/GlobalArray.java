@@ -1,10 +1,14 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class GlobalArray {
     ArrayList<StringBuffer>globalArrayList;
+    CSVOut csvOut;
 
     public GlobalArray() {
+        this.csvOut = new CSVOut();
         this.globalArrayList = new ArrayList<StringBuffer>();
     }
 
@@ -26,4 +30,10 @@ public class GlobalArray {
             }
         }));
    }
-}
+   public void writeToOutPut() {
+
+       for (int i = 0; i <globalArrayList.size(); i++) {
+        csvOut.writeToFile(getElement(i));
+       }
+   }
+ }

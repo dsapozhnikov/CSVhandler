@@ -5,6 +5,10 @@ import java.io.FileWriter;
 
 public abstract class AbstractCSVhandler {
 
+   protected String inputfilename = "C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\input\\";
+   protected String outputfilename = "C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\output\\output.csv";
+   protected String folderName = "C:\\Users\\dsapozhnikov\\Documents\\GitHub\\CSVhandler\\input";
+
     protected BufferedWriter bw;
     protected  FileReader reader;
     protected FileReader readerForInts;
