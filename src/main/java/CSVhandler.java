@@ -158,6 +158,7 @@ public class CSVhandler {
                         countDownLatch.countDown();
                     }
   //              }
+                \\
 
             });
 
@@ -167,6 +168,7 @@ public class CSVhandler {
         try {
             countDownLatch.await();
             globalArray.sort();
+
 
 
             csvOut = new CSVOut();

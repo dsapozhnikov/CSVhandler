@@ -18,6 +18,7 @@ public class CSVOut {
         }
     }
 
+
     private List<String[]> strings;
 
     static String s;

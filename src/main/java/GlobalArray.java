@@ -17,10 +17,11 @@ public class GlobalArray {
         return  globalArrayList.get(index);
     }
 
+
    public void sort() {
         globalArrayList.sort((new Comparator<StringBuffer>() {
             public int compare(StringBuffer o1, StringBuffer o2) {
-              
+
                 return Integer.parseInt(o1.toString().split(",")[1].substring(4)) - Integer.parseInt(o2.toString().split(",")[1].substring(4));
             }
         }));
