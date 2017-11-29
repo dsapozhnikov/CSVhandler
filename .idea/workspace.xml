@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f1f751f-c1fa-473d-a11a-a307fd016794" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/CSVOut.java" afterPath="$PROJECT_DIR$/src/main/java/CSVOut.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/CSVhandler.java" afterPath="$PROJECT_DIR$/src/main/java/CSVhandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/GlobalArray.java" afterPath="$PROJECT_DIR$/src/main/java/GlobalArray.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,11 +30,11 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/CSVhandler.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="454">
-              <caret line="160" column="18" lean-forward="false" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
+              <caret line="160" column="16" lean-forward="false" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#765#771#0" expanded="true" />
-                <element signature="e#1778#7462#0" expanded="true" />
+                <element signature="e#1778#7460#0" expanded="true" />
                 <element signature="e#3141#3464#0" expanded="true" />
                 <element signature="e#3463#3464#0" expanded="true" />
               </folding>
@@ -721,7 +718,7 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#765#771#0" expanded="true" />
-            <element signature="e#1778#7462#0" expanded="true" />
+            <element signature="e#1778#7460#0" expanded="true" />
             <element signature="e#3141#3464#0" expanded="true" />
             <element signature="e#3463#3464#0" expanded="true" />
           </folding>
@@ -805,11 +802,11 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/CSVhandler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="454">
-          <caret line="160" column="18" lean-forward="false" selection-start-line="160" selection-start-column="18" selection-end-line="160" selection-end-column="18" />
+          <caret line="160" column="16" lean-forward="false" selection-start-line="160" selection-start-column="16" selection-end-line="160" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#765#771#0" expanded="true" />
-            <element signature="e#1778#7462#0" expanded="true" />
+            <element signature="e#1778#7460#0" expanded="true" />
             <element signature="e#3141#3464#0" expanded="true" />
             <element signature="e#3463#3464#0" expanded="true" />
           </folding>
